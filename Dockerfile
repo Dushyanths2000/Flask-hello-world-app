@@ -1,10 +1,18 @@
-# init a base image (Alpine is small Linux distro)
-FROM python:3.6.1-alpine
-# define the present working directory
-WORKDIR /docker-flask-test
-# copy the contents into the working dir
-ADD . /docker-flask-test
-# run pip to install the dependencies of the flask app
-RUN pip install -r requirements.txt
-# define the command to start the container
-CMD ["python","app.py"]
+
+
+FROM python:3
+
+# set a directory for the app
+WORKDIR /usr/src/app
+
+# copy all the files to the container
+COPY . .
+
+# install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# tell the port number the container should expose
+EXPOSE 5000
+
+# run the command
+CMD ["python", "./app.py"]
